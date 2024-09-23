@@ -1,7 +1,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"log"
 	"time"
 )
 
@@ -21,17 +23,36 @@ func (u *user) clearUserName() {
 	u.lastName = ""
 }
 
+func newUser(firstName string, lastName string, birthDate string) (*user, error) {
+
+	if firstName == "" {
+		return nil, errors.New("first name is blank")
+	}
+
+	if lastName == "" {
+		return nil, errors.New("last name is blank")
+	}
+
+	if birthDate == "" {
+		return nil, errors.New("birthDate is blank")
+	}
+
+	return &user{
+		firstName,
+		lastName,
+		birthDate,
+		time.Now(),
+	}, nil
+}
+
 func main() {
 	firstName := getUserData("Please enter your first name: ")
 	lastName := getUserData("Please enter your last name: ")
-	birthdate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
+	birthDate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	// ... do something awesome with that gathered data!
-	appUser := user{
-		firstName,
-		lastName,
-		birthdate,
-		time.Now(),
+	appUser, err := newUser(firstName, lastName, birthDate)
+	if err != nil {
+		log.Fatal(err)
 	}
 	appUser.outputUserDetails()
 	appUser.clearUserName()
