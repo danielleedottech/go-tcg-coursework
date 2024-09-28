@@ -15,6 +15,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	admin := user.NewAdmin("dan@gmail.com", "1234")
+	admin.OutputUserDetails()
 	appUser.OutputUserDetails()
 	appUser.ClearUserName()
 	appUser.OutputUserDetails()
