@@ -20,13 +20,13 @@ func main() {
 }
 
 func getNoteData() (string, string) {
-	title := getUserInput("Note title: ")
-	content := getUserInput("Note content: ")
+	title := getUserInput("Note title:")
+	content := getUserInput("Note content:")
 	return title, content
 }
 
 func getUserInput(prompt string) string {
-	fmt.Print(prompt)
+	fmt.Printf("%v ", prompt)
 
 	reader := bufio.NewReader(os.Stdin)
 	text, err := reader.ReadString('\n')
