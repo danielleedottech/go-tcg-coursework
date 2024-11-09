@@ -4,17 +4,36 @@ import (
 	"bufio"
 	"fmt"
 	"github.com/danielleetech/go-tcg-coursework/structs-practice/note"
+	"github.com/danielleetech/go-tcg-coursework/structs-practice/todo"
 	"os"
 	"strings"
 )
 
 func main() {
 	title, content := getNoteData()
+	todoText := getUserInput("Todo text: ")
+
+	t, err := todo.New(todoText)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	n, err := note.New(title, content)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
+	t.Display()
+	err = t.Save()
+	if err != nil {
+		fmt.Println("Saving the todo failed")
+	} else {
+		fmt.Println("Saving the todo succeeded")
+	}
+
 	n.Display()
 	err = n.Save()
 	if err != nil {
@@ -22,6 +41,10 @@ func main() {
 	} else {
 		fmt.Println("Saving the note succeeded")
 	}
+}
+
+func getTodoData() string {
+	return getUserInput("Todo text: ")
 }
 
 func getNoteData() (string, string) {
