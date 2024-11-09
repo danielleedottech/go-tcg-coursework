@@ -9,6 +9,10 @@ import (
 	"strings"
 )
 
+type saver interface {
+	Save() error
+}
+
 func main() {
 	title, content := getNoteData()
 	todoText := getUserInput("Todo text: ")
@@ -26,21 +30,24 @@ func main() {
 		return
 	}
 
-	t.Display()
-	err = t.Save()
+	err = saveData(t)
 	if err != nil {
-		fmt.Println("Saving the todo failed")
-	} else {
-		fmt.Println("Saving the todo succeeded")
+		return
 	}
+	err = saveData(n)
+	if err != nil {
+		return
+	}
+}
 
-	n.Display()
-	err = n.Save()
+func saveData(data saver) error {
+	err := data.Save()
 	if err != nil {
-		fmt.Println("Saving the note failed")
+		fmt.Println("Saving the data failed")
 	} else {
-		fmt.Println("Saving the note succeeded")
+		fmt.Println("Saving the data succeeded")
 	}
+	return err
 }
 
 func getTodoData() string {
