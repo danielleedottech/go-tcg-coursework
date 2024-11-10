@@ -35,10 +35,14 @@ func main() {
 	prices[1] = 9.99
 	//prices[2] = 2.99 raises error because of cap limit
 
-	updatedPrices := append(prices, 5.99)
+	updatedPrices := append(prices, 5.99, 12.99, 29.99, 100.10)
 	fmt.Println(prices)
 	fmt.Println(updatedPrices)
 
 	updatedPrices = updatedPrices[1:]
 	fmt.Println(updatedPrices)
+
+	discountedPrices := []float64{101.99, 80.99, 20.59}
+	prices = append(prices, discountedPrices...)
+	fmt.Println(prices)
 }
