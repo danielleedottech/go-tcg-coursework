@@ -9,5 +9,10 @@ func main() {
 		"Facebook": "https://facebook.com",
 	}
 	fmt.Println(websites)
+	fmt.Println(websites["Google"])
+	websites["LinkedIn"] = "https://linkedin.com"
+	fmt.Println(websites)
 
+	delete(websites, "Yahoo")
+	fmt.Println(websites)
 }
